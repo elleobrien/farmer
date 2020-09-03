@@ -17,6 +17,6 @@ jobs:
           dvc metrics diff --show-md master > report.md
 
           # Add figure to the report
-          echo "## Validating results by region"
+          echo "## Validating results by region" >> report.md
           cml-publish by_region.png --md >> report.md
           cml-send-comment report.md
