@@ -21,5 +21,5 @@ jobs:
 
           # add figure
           echo "## validating results by region"
-          cml-publish by_region.png --md >> report.md
+          cml-publish by_region.png --md >> report.md 
           cml-send-comment report.md
