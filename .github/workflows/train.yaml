@@ -10,13 +10,16 @@ jobs:
         env:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pip install -r requirements.txt
-          dvc repro 
 
-          git fetch --prune
+          # Your ML workflow goes here
+          pip install -r requirements.txt
+          dvc repro # cmd in dvc.yaml
+          git fetch --prune #prune cleans up pull tree
+
+          #fmt to md and compare the actual branch to master
           dvc metrics diff --show-md master > report.md
 
-          # Add figure to the report
-          echo "## Validating results by region"
+          # add figure
+          echo "## validating results by region"
           cml-publish by_region.png --md >> report.md
           cml-send-comment report.md
