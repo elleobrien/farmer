@@ -1,4 +1,4 @@
-import pandas as pd 
+import pandas as pd
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn import preprocessing
@@ -13,7 +13,7 @@ from sklearn.impute import SimpleImputer
 
 df = pd.read_csv("data_processed.csv")
 
-#### Get features ready to model! 
+#### Get features ready to model!
 y = df.pop("cons_general").to_numpy()
 y[y< 4] = 0
 y[y>= 4] = 1
@@ -44,6 +44,7 @@ with open("metrics.json", 'w') as outfile:
 score = yhat == y
 score_int = [int(s) for s in score]
 df['pred_accuracy'] = score_int
+print('X: ',df['region'],'score_int: ',score_int, 'y: ', y)
 
 # Bar plot by region
 

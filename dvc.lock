@@ -1,0 +1,39 @@
+train_model:
+  cmd: python train.py
+  deps:
+  - path: data_processed.csv
+    md5: 3b20a3a6ac0570f3de28b77d1e88f932
+    size: 24627
+  - path: train.py
+    md5: 7848835201136313e5d3ff02750a243d
+    size: 1583
+  outs:
+  - path: by_region.png
+    md5: 8eac8f14e6ab539ba1a4e71c2d8ccbca
+    size: 7810
+  - path: metrics.json
+    md5: f4844c28505568f336c5f91db3f1beb3
+    size: 89
+get_data:
+  cmd: python get_data.py
+  deps:
+  - path: get_data.py
+    md5: 837e05fdbb667780d617f85fd5105cea
+    size: 475
+  outs:
+  - path: data_raw.csv
+    md5: a6aec8da63a5fa2619af025a76746f29
+    size: 68868
+process_data:
+  cmd: python process_data.py
+  deps:
+  - path: data_raw.csv
+    md5: a6aec8da63a5fa2619af025a76746f29
+    size: 68868
+  - path: process_data.py
+    md5: 79b357c12f171f3d07c76780815b651c
+    size: 928
+  outs:
+  - path: data_processed.csv
+    md5: 3b20a3a6ac0570f3de28b77d1e88f932
+    size: 24627
