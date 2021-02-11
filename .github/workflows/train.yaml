@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{matrix}}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        pool: [ubuntu-latest, windows-latest, macOS-latest]
     container: docker://dvcorg/cml-py3:latest
 
     steps:
