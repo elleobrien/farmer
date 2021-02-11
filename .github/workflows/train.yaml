@@ -9,7 +9,6 @@ on:
 
 jobs:
   run-pipeline:
-
     runs-on: ${{matrix}}
     strategy:
       matrix:
