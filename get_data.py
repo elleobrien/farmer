@@ -14,6 +14,3 @@ with zipfile.ZipFile(zip_name, 'r') as zip_ref:
     zip_ref.extract(zip_ref.filelist[0])
 
 os.remove(zip_name)
-
-
-# Download the zipped dataset
