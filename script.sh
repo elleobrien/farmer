@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 all=();
 for i in $(git ls-remote --heads origin_shruti);
 do
