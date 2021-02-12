@@ -14,7 +14,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: repo_branch
-        run: sh ./script.sh
+        run: |
+          sudo bash ./script.sh
         id: repo_branch_id
 
       - name: cml_run
