@@ -18,8 +18,8 @@ get_data:
   cmd: python get_data.py
   deps:
   - path: get_data.py
-    md5: 837e05fdbb667780d617f85fd5105cea
-    size: 475
+    md5: 37df23f82dd4a615835cbcdde3620d92
+    size: 438
   outs:
   - path: data_raw.csv
     md5: a6aec8da63a5fa2619af025a76746f29
