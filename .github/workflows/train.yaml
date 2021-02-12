@@ -6,26 +6,29 @@ name: Run an ML Pipeline
 on: [push]
 
 jobs:
-  pipeline:
+  job1:
     runs-on: ubuntu-latest
-    container: docker://dvcorg/cml-py3:latest
-    
+    outputs:
+      output1: ${{steps.step1.outputs.TAG_NAME}} 
     steps:
       - uses: actions/checkout@v2
-
       - name: repo_branch
+      - id: step1
         env:
           repo_token: ${{secrets.GITHUB_TOKEN}}
         run: |
           sudo bash ./script.sh
-        id: repo_branch_id
-
+          
+  job2:
+    runs-on: ubuntu-latest
+    container: docker://dvcorg/cml-py3:latest
+    needs: job1
+    steps:
       - name: cml_run
-        env: 
+        env:
           repo_token: ${{secrets.GITHUB_TOKEN}}
-          BRANCH: "${{steps.repo_branch_id.outputs}}"
         run: |
-          echo $BRANCH
+          echo ${{needs.job1.outputs.output1}}
           pip install -r requirements.txt
           dvc repro
 
