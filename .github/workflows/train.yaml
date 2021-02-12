@@ -9,7 +9,7 @@ jobs:
   pipeline:
     runs-on: ubuntu-latest
     container: docker://dvcorg/cml-py3:latest
-
+    
     steps:
       - uses: actions/checkout@v2
 
@@ -21,9 +21,9 @@ jobs:
         id: repo_branch_id
 
       - name: cml_run
-        env:
+        env: 
           repo_token: ${{secrets.GITHUB_TOKEN}}
-          BRANCH: ${{steps.repo_branch_id.outputs.*}}
+          BRANCH: ${{steps.repo_branch_id.outputs}}
         run: |
           echo $BRANCH
           pip install -r requirements.txt
