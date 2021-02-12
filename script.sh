@@ -1,5 +1,5 @@
 #!/bin/bash
-all=()
+all=();
 for i in $(git ls-remote --heads origin_shruti);
 do
 all+=($i);
