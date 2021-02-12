@@ -11,8 +11,8 @@ jobs:
     outputs:
       output1: ${{steps.step1.outputs.TAG_NAME}} 
     steps:
-      - uses: actions/checkout@v2
       - name: repo_branch
+        uses: actions/checkout@v2
       - id: step1
         env:
           repo_token: ${{secrets.GITHUB_TOKEN}}
