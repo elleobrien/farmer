@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 all=();
-for i in $(git ls-remote --heads origin_shruti);
+for i in $(git ls-remote --heads https://github.com/ShrutiC-git/farmer.git);
 do
 all+=($i);
 done
