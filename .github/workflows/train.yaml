@@ -16,8 +16,7 @@ jobs:
       - id: step1
         env:
           repo_token: ${{secrets.GITHUB_TOKEN}}
-        run: |
-          sudo bash ./script.sh
+        run: sudo bash ./script.sh
           
   job2:
     runs-on: ubuntu-latest
