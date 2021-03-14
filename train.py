@@ -1,6 +1,6 @@
 import pandas as pd 
 import numpy as np
-from sklearn.linear_model import LogisticRegression
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 from sklearn import preprocessing
 from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import confusion_matrix
@@ -13,7 +13,8 @@ from sklearn.impute import SimpleImputer
 
 df = pd.read_csv("data_processed.csv")
 
-#### Get features ready to model! 
+
+#### Get features ready to model! yeokah
 y = df.pop("cons_general").to_numpy()
 y[y< 4] = 0
 y[y>= 4] = 1
@@ -28,7 +29,7 @@ X = imp.transform(X)
 
 
 # Linear model
-clf = LogisticRegression()
+clf = QuadraticDiscriminantAnalysis()
 yhat = cross_val_predict(clf, X, y, cv=5)
 
 acc = np.mean(yhat==y)
