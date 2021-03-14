@@ -1,30 +1,41 @@
-get_data:
-  cmd: python get_data.py
-  deps:
-  - path: get_data.py
-    md5: 1db5f442403042e0403c75132fe59af4
-  outs:
-  - path: data_raw.csv
-    md5: a6aec8da63a5fa2619af025a76746f29
-process:
-  cmd: python process_data.py
-  deps:
-  - path: data_raw.csv
-    md5: a6aec8da63a5fa2619af025a76746f29
-  - path: process_data.py
-    md5: 79b357c12f171f3d07c76780815b651c
-  outs:
-  - path: data_processed.csv
-    md5: 3b20a3a6ac0570f3de28b77d1e88f932
-train:
-  cmd: python train.py
-  deps:
-  - path: data_processed.csv
-    md5: 3b20a3a6ac0570f3de28b77d1e88f932
-  - path: train.py
-    md5: 80ad33d8caf823fc1d5cdefcb5b9490a
-  outs:
-  - path: by_region.png
-    md5: e7f3818fac35589b0c46dd65f8293e74
-  - path: metrics.json
-    md5: f4844c28505568f336c5f91db3f1beb3
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python get_data.py
+    deps:
+    - path: get_data.py
+      md5: 1db5f442403042e0403c75132fe59af4
+      size: 516
+    outs:
+    - path: data_raw.csv
+      md5: a6aec8da63a5fa2619af025a76746f29
+      size: 68868
+  process:
+    cmd: python process_data.py
+    deps:
+    - path: data_raw.csv
+      md5: a6aec8da63a5fa2619af025a76746f29
+      size: 68868
+    - path: process_data.py
+      md5: 79b357c12f171f3d07c76780815b651c
+      size: 928
+    outs:
+    - path: data_processed.csv
+      md5: 3b20a3a6ac0570f3de28b77d1e88f932
+      size: 24627
+  train:
+    cmd: python train.py
+    deps:
+    - path: data_processed.csv
+      md5: 3b20a3a6ac0570f3de28b77d1e88f932
+      size: 24627
+    - path: train.py
+      md5: 80ad33d8caf823fc1d5cdefcb5b9490a
+      size: 1524
+    outs:
+    - path: by_region.png
+      md5: 47fd5c8b04c5d2d17404e115d8467461
+      size: 7812
+    - path: metrics.json
+      md5: f4844c28505568f336c5f91db3f1beb3
+      size: 89
