@@ -14,7 +14,7 @@ from sklearn.impute import SimpleImputer
 df = pd.read_csv("data_processed.csv")
 
 
-#### Get features ready to model! yeah
+#### Get features ready to model! yeokah
 y = df.pop("cons_general").to_numpy()
 y[y< 4] = 0
 y[y>= 4] = 1
