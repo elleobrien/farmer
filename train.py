@@ -45,7 +45,7 @@ score = yhat == y
 score_int = [int(s) for s in score]
 df['pred_accuracy'] = score_int
 
-# Bar plot by region
+# Bar plot by regio
 
 sns.set_color_codes("dark")
 ax = sns.barplot(x="region", y="pred_accuracy", data=df, palette = "Greens_d")
