@@ -189,4 +189,5 @@ pickle.dump(model,open('model.pkl','wb'))
 #with mlflow.start_run():
 #    mlflow.log_param("alpha1",model.coef_[0])
 #    mlflow.log_param("beta1",model.coef_[1])
-
+if os.getenv('CI') == "true":
+    neptune.append_tag('ci-pipeline', os.getenv('NEPTUNE_EXPERIMENT_TAG_ID'))
