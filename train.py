@@ -11,43 +11,105 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.impute import SimpleImputer
 
-df = pd.read_csv("data_processed.csv")
+###
 
-#### Get features ready to model! 
-y = df.pop("cons_general").to_numpy()
-y[y< 4] = 0
-y[y>= 4] = 1
-
-X = df.to_numpy()
-X = preprocessing.scale(X) # Is standard
-# Impute NaNs
-
-imp = SimpleImputer(missing_values=np.nan, strategy='mean')
-imp.fit(X)
-X = imp.transform(X)
+df = pd.read_csv('BostonData.csv',header=0)
 
 
-# Linear model
-clf = LogisticRegression()
-yhat = cross_val_predict(clf, X, y, cv=5)
 
-acc = np.mean(yhat==y)
-tn, fp, fn, tp = confusion_matrix(y, yhat).ravel()
-specificity = tn / (tn+fp)
-sensitivity = tp / (tp + fn)
 
-# Now print to file
-with open("metrics.json", 'w') as outfile:
-        json.dump({ "accuracy": acc, "specificity": specificity, "sensitivity":sensitivity}, outfile)
 
-# Let's visualize within several slices of the dataset
-score = yhat == y
-score_int = [int(s) for s in score]
-df['pred_accuracy'] = score_int
 
-# Bar plot by region
+# In[4]:
+
+
+df_correl = df.corr()
+
+
+# In[5]:
+
+
+####import seaborn as sns
+####import matplotlib.pyplot as plt
+#plt.figure(figsize=(12,10))
+#sns.heatmap(df_correl,annot=True)
+
 
 sns.set_color_codes("dark")
-ax = sns.barplot(x="region", y="pred_accuracy", data=df, palette = "Greens_d")
-ax.set(xlabel="Region", ylabel = "Model accuracy")
+ax = sns.heatmap(df_correl,annot=True)
 plt.savefig("by_region.png",dpi=80)
+
+
+
+from sklearn.preprocessing import StandardScaler
+
+
+# In[9]:
+
+
+# standardize everything except CHAS and MEDV
+features_stdz = list(set(df.columns) - {"CHAS","MEDV"})
+
+
+# In[10]:
+
+
+std_trans = StandardScaler()
+df_trans = pd.DataFrame(std_trans.fit_transform(df[features_stdz]),columns=features_stdz)
+
+
+# In[11]:
+
+
+df0 = df_trans.merge(df[["CHAS","MEDV"]],right_index=True,left_index=True)
+
+
+# In[12]:
+
+
+df0
+
+
+# In[13]:
+
+
+from sklearn.model_selection import train_test_split
+
+
+# In[14]:
+
+
+X = df0.iloc[:,0:13]
+y = df0["MEDV"]
+
+
+# In[15]:
+
+
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2)
+
+
+# In[16]:
+
+
+from sklearn.linear_model import LinearRegression
+reg = LinearRegression()
+model = reg.fit(X_train,y_train)
+
+
+# In[17]:
+
+
+print("y-intercept",model.coef_[0])
+
+with open("metrics.json", 'w') as outfile:
+        json.dump({ "y0": model.coef_[0], outfile)
+# In[18]:
+
+## UNCOMMENT FOR MLFLOW REPORTING
+#mlflow.set_experiment(experiment_name="experiment1")
+#mlflow.set_tracking_uri("http://localhost:5000")
+#with mlflow.start_run():
+#    mlflow.log_param("alpha1",model.coef_[0])
+#    mlflow.log_param("beta1",model.coef_[1])
+
