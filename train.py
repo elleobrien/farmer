@@ -106,8 +106,6 @@ r2 = r2_score(y_test, y_pred)
 # In[17]:
 
 
-print("y-intercept",model.coef_[0])
-
 with open("metrics.json", 'w') as outfile:
         json.dump({ "MSE": mse, "RMSE":rmse,"R2":r2 }, outfile)
         
