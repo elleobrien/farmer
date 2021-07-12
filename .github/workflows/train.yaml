@@ -1,5 +1,72 @@
 name: farmers
+
 on: [push]
+
+jobs:
+  compare-experiments:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7]
+    env:
+      NEPTUNE_API_TOKEN: ${{ secrets.NEPTUNE_API_TOKEN }}
+      NEPTUNE_PROJECT_NAME: ${{ secrets.NEPTUNE_PROJECT_NAME }}
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Checkout pull request branch
+        uses: actions/checkout@v2
+        with:
+          ref: newNeptune
+
+      - name: Setup pull request branch environment and run experiment
+        id: experiment_pr
+        run: |
+          echo "Hello2"
+          pip install -r requirements.txt
+          export NEPTUNE_EXPERIMENT_TAG_ID=$(uuidgen)
+          python train.py
+          echo ::set-output name=experiment_tag_id::$NEPTUNE_EXPERIMENT_TAG_ID
+
+      - name: Checkout main branch
+        uses: actions/checkout@v2
+        with:
+          ref: master
+
+      - name: Setup main branch environment and run experiment
+        id: experiment_main
+        run: |
+          pip install -r requirements.txt
+          export NEPTUNE_EXPERIMENT_TAG_ID=$(uuidgen)
+          python train.py
+          echo ::set-output name=experiment_tag_id::$NEPTUNE_EXPERIMENT_TAG_ID
+
+      - name: Get Neptune experiments
+        env:
+          MAIN_BRANCH_EXPERIMENT_TAG_ID: ${{ steps.experiment_main.outputs.experiment_tag_id }}
+          PR_BRANCH_EXPERIMENT_TAG_ID: ${{ steps.experiment_pr.outputs.experiment_tag_id }}
+        id: compare
+        run: |
+          pip install -r requirements.txt
+          python -m neptunecontrib.create_experiment_comparison_comment \
+            --api_token $NEPTUNE_API_TOKEN \
+            --project_name $NEPTUNE_PROJECT_NAME \
+            --tag_names $MAIN_BRANCH_EXPERIMENT_TAG_ID $PR_BRANCH_EXPERIMENT_TAG_ID \
+            --filepath comment_body.md
+          result=$(cat comment_body.md)
+          echo ::set-output name=result::$result
+
+      - name: Create a comment
+        uses: peter-evans/commit-comment@v1
+        with:
+          body: |
+            ${{ steps.compare.outputs.result }}
+
+
 jobs:
   run:
     runs-on: [ubuntu-latest]
