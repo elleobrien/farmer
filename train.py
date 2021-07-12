@@ -95,7 +95,13 @@ X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2)
 from sklearn.linear_model import LinearRegression
 reg = LinearRegression()
 model = reg.fit(X_train,y_train)
+y_pred = model.predict(X_test)
 
+from sklearn.metrics import mean_squared_error, r2_score
+import math
+mse = mean_squared_error(y_test, y_pred, squared=False)
+rmse = math.sqrt(mse)
+r2 = r2_score(y_test, y_pred)
 
 # In[17]:
 
@@ -103,7 +109,7 @@ model = reg.fit(X_train,y_train)
 print("y-intercept",model.coef_[0])
 
 with open("metrics.json", 'w') as outfile:
-        json.dump({ "y0": model.coef_[0], outfile)
+        json.dump({ "MSE": mse, "RMSE":rmse,"R2":r2 }, outfile)
 # In[18]:
 
 ## UNCOMMENT FOR MLFLOW REPORTING
