@@ -110,6 +110,8 @@ print("y-intercept",model.coef_[0])
 
 with open("metrics.json", 'w') as outfile:
         json.dump({ "MSE": mse, "RMSE":rmse,"R2":r2 }, outfile)
+        
+pickle.dump(model,open('model.pkl','wb'))
 # In[18]:
 
 ## UNCOMMENT FOR MLFLOW REPORTING
