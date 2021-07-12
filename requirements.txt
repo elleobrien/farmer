@@ -1,5 +1,10 @@
 wget
-sklearn
 pandas
 seaborn
 matplotlib
+lightgbm==2.3.1
+neptune-client>=0.9.8
+neptune-contrib==0.24.8
+numpy==1.19.0
+scikit-learn==0.23.1
+scikit-plot==0.3.7
