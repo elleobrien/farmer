@@ -3,3 +3,4 @@ sklearn
 pandas
 seaborn
 matplotlib
+dvc
