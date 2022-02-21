@@ -50,4 +50,4 @@ df['pred_accuracy'] = score_int
 sns.set_color_codes("dark")
 ax = sns.barplot(x="region", y="pred_accuracy", data=df, palette = "Greens_d")
 ax.set(xlabel="Region", ylabel = "Model accuracy")
-plt.savefig("by_region.png",dpi=80)
+plt.savefig("by_region.png",dpi=75)
