@@ -27,7 +27,7 @@ imp.fit(X)
 X = imp.transform(X)
 
 
-# Linear model
+# Linear model 
 clf = QuadraticDiscriminantAnalysis()
 yhat = cross_val_predict(clf, X, y, cv=5)
 
