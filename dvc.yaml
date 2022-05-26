@@ -12,7 +12,7 @@ stages:
     - data_raw.csv
     outs:
     - data_processed.csv
-  train:
+  train: 
     cmd: python train.py
     deps:
     - train.py
@@ -20,5 +20,4 @@ stages:
     outs:
     - by_region.png
     metrics:
-    - metrics.json:
-        cache: false
+    - metrics.json: {"cache": false}
