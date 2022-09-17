@@ -1,5 +1,6 @@
 import pandas as pd
 
+# data loading
 df = pd.read_csv("data_raw.csv")
 
 all_features = df.columns
