@@ -22,7 +22,7 @@ X = df.to_numpy()
 X = preprocessing.scale(X) # Is standard
 # Impute NaNs
 
-imp = SimpleImputer(missing_values=np.nan, strategy='mean')
+imp = SimpleImputer(missing_values=np.nan, strategy='constant', fill_value=0)
 imp.fit(X)
 X = imp.transform(X)
 
