@@ -34,8 +34,8 @@ stages:
       size: 1471
     outs:
     - path: by_region.png
-      md5: c999dc35c9550c8906259871a8f746d7
-      size: 7810
+      md5: 7938ddaaed7b4f6e8071a6b636d72fd8
+      size: 7812
     - path: metrics.json
       md5: f4844c28505568f336c5f91db3f1beb3
       size: 89
