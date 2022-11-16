@@ -21,4 +21,4 @@ jobs:
           echo "## Validating results by region"
           echo "![](./by_region.png)" >> report.md
 
-          cml comment create report.md
+          cml comment create --pr report.md
