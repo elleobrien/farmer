@@ -23,4 +23,4 @@ jobs:
           echo "## Validating results by region"
           echo '![](./by_region.png "Accuracy by Region")' >> report.md
 
-          cml comment create --pr report.md
+          cml comment create report.md
