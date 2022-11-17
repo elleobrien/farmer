@@ -1,4 +1,6 @@
 [core]
-    remote = myremote
+    remote = farmers
 ['remote "myremote"']
     url = gdrive://1vx8xhVjnDftXZzUT1R3PoNcsZOP7cAso
+['remote "farmers"']
+    url = s3://farmers.3r99j03rtyujbfrdt672ijhd2y78i
