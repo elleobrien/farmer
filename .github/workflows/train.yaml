@@ -15,10 +15,12 @@ jobs:
           dvc repro
 
           git fetch --prune
-          dvc metrics diff --show-md master > report.md
+          
+          echo "Metrics: workflow vs. master" > report.md
+          dvc metrics diff master --show-md >> report.md
 
           # Add figure to the report
           echo "## Validating results by region"
-          echo "![](./by_region.png)" >> report.md
+          echo '![](./by_region.png "Accuracy by Region")' >> report.md
 
           cml comment create report.md
