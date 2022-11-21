@@ -1,4 +1,3 @@
-wget
 scikit-learn
 pandas
 seaborn
