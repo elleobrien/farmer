@@ -5,7 +5,8 @@ import wget
 
 # Download the zipped dataset
 # url = 'https://md-datasets-cache-zipfiles-prod.s3.eu-west-1.amazonaws.com/yshdbyj6zy-1.zip'
-url = "https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/383116/rawdata_new.csv?sequence=1&isAllowed=y"
+# url = "https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/383116/rawdata_new.csv?sequence=1&isAllowed=y"
+url = "https://www.dropbox.com/s/wif0iqtk2ige5sj/data_raw.csv?dl=0"
 dataset_filename = "data_raw.csv"
 wget.download(url, dataset_filename)
 
