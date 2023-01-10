@@ -4,9 +4,9 @@ stages:
     cmd: python get_data.py
     deps:
     - path: get_data.py
-      md5: e703d97969427c18a30f15bc0077ccf0
-      size: 673
+      md5: 49051bf27de4f8988f994236291f3ffb
+      size: 744
     outs:
     - path: data_raw.csv
-      md5: a6aec8da63a5fa2619af025a76746f29
-      size: 68868
+      md5: d75ea7ec3c44737768d1e01cd152b60a
+      size: 831801

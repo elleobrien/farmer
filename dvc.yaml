@@ -6,7 +6,7 @@ stages:
     outs:
     - data_raw.csv
   process:
-    cmd: python get_data.py
+    cmd: python process_data.py
     deps:
     - process_data.py
     - data_raw.csv
@@ -18,7 +18,7 @@ stages:
     - train.py
     - data_processed.csv
     outs:
-    - my_region.png
+    - by_region.png
     metrics:
     - metrics.json:
         cache: false
