@@ -3,20 +3,34 @@ on: [push]
 jobs:
   run:
     runs-on: [ubuntu-latest]
-    container: docker://dvcorg/cml-py3:latest
+    container: docker://dvcorg/cml:latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Set safe directory
+        run: git config --global --add safe.directory /__w/githubactionsml/githubactionsml
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
       - name: cml_run
         env:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pip install -r requirements.txt
           dvc repro 
-
           git fetch --prune
-          dvc metrics diff --show-md master > report.md
-
+          echo "## DVC metrics comparison" >> report.md
+          dvc metrics diff main >> report.md
           # Add figure to the report
-          echo "## Validating results by region"
+          echo "## Validating results by region" >> report.md
           cml-publish by_region.png --md >> report.md
           cml-send-comment report.md
+
+      - name: Commit DVC changes
+        run: |
+          git add dvc.lock
+          git commit -m "Update DVC lock file" || echo "No changes to commit"
+          git push
