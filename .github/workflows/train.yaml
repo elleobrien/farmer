@@ -12,8 +12,7 @@ jobs:
 
 
           git fetch --prune
-          # Create CML report
-          dvc metrics diff --show-md > report.md
+          dvc metrics diff > report.md 
           echo '![](./plot.png "Confusion Matrix")' >> report.md
           cml comment create report.md
         env:
