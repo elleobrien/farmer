@@ -1,6 +1,7 @@
-name: model for farmers
+name: CML
 on: [push]
 jobs:
+  train-and-report:
   run:
     runs-on: ubuntu-latest
     steps:
