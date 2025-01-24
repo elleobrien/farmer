@@ -1,7 +1,6 @@
-name: CML
+name: model-outbreaks
 on: [push]
 jobs:
-  train-and-report:
   run:
     runs-on: ubuntu-latest
     steps:
